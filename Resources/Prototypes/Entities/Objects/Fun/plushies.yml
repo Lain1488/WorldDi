@@ -1270,7 +1270,7 @@
 
 - type: entity
   parent: BasePlushie
-  id: PlushieDi       # Уникальный ID
+  id: Плюшевая Ди      # Уникальный ID
   name: Плюшевая Ди      # Название предмета
   description: От неё пахнет лавандой!  # Описание
   components:
@@ -1280,6 +1280,6 @@
   - type: Item
     size: Normal
     sprite: Objects/Fun/Plushies/di.rsi
-  - type: Clothing
-    quickEquip: false
-    sprite: Objects/Fun/Plushies/di.rsi
+  - type: FoodSequenceElement
+    entries:
+      CottonBurger: DiPlushie
