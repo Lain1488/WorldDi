@@ -7,6 +7,8 @@ namespace Content.Server.GameTicking;
 
 public sealed partial class GameTicker
 {
+    private static readonly ResPath FallbackLobbyBackground = new("/Textures/LobbyScreens/warden.webp");
+
     [ViewVariables]
     public string? LobbyBackground { get; private set; }
 
@@ -26,6 +28,8 @@ public sealed partial class GameTicker
     }
 
     private void RandomizeLobbyBackground() {
-        LobbyBackground = _lobbyBackgrounds!.Any() ? _robustRandom.Pick(_lobbyBackgrounds!).ToString() : null;
+        LobbyBackground = _lobbyBackgrounds!.Any()
+            ? _robustRandom.Pick(_lobbyBackgrounds!).ToString()
+            : FallbackLobbyBackground.ToString();
     }
 }
