@@ -120,14 +120,20 @@ namespace Content.Server.Preferences.Managers
                 [slot] = profile
             };
 
-            var selectedIndex = curPrefs.Characters.ContainsKey(slot)
+            var newSelected = curPrefs.Characters.ContainsKey(slot)
                 ? curPrefs.SelectedCharacterIndex
                 : slot;
 
-            prefsData.Prefs = new PlayerPreferences(profiles, selectedIndex, curPrefs.AdminOOCColor, curPrefs.ConstructionFavorites);
+            prefsData.Prefs = new PlayerPreferences(profiles, newSelected, curPrefs.AdminOOCColor, curPrefs.ConstructionFavorites);
 
             if (ShouldStorePrefs(session.Channel.AuthType))
+            {
                 await _db.SaveCharacterSlotAsync(userId, profile, slot);
+                if (newSelected != curPrefs.SelectedCharacterIndex)
+                {
+                    await _db.SaveSelectedCharacterIndexAsync(userId, newSelected);
+                }
+            }
         }
 
         public async Task SetConstructionFavorites(NetUserId userId, List<ProtoId<ConstructionPrototype>> favorites)

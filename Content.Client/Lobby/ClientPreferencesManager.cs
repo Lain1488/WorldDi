@@ -95,8 +95,8 @@ namespace Content.Client.Lobby
             characters.Add(l, profile);
             Preferences = new PlayerPreferences(characters, l, Preferences.AdminOOCColor, Preferences.ConstructionFavorites);
 
-            // New slots should become selected immediately and remain selected on the server.
             UpdateCharacter(profile, l);
+            SelectCharacter(l);
         }
 
         public void DeleteCharacter(ICharacterProfile profile)
