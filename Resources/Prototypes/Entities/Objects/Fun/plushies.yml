@@ -1315,3 +1315,19 @@
   - type: FoodSequenceElement
     entries:
       CottonBurger: AlbertPlushie
+
+- type: entity
+  parent: BasePlushie
+  id: Плюшевый джаггернаут    # Уникальный ID
+  name: Плюшевый джаггернаут      # Название предмета
+  description: Хоть он и плюшевый, его улыбка до ушей всё ещё пугает до мурашек.  # Описание
+  components:
+  - type: Sprite
+    sprite: Objects/Fun/Plushies/juggernauthahaha
+    state: icon
+  - type: Item
+    size: Normal
+    sprite: Objects/Fun/Plushies/juggernauthahaha
+  - type: FoodSequenceElement
+    entries:
+      CottonBurger: JuggernautHAHAHAPlushie
