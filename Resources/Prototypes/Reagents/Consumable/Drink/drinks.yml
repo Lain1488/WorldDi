@@ -618,3 +618,22 @@
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+
+- type: reagent
+  id: Apple cider
+  name: Яблочный сидр
+  parent: BaseDrink
+  desc: reagent-desc-apple-cider
+  physicalDesc: reagent-physical-desc-aromatic
+  flavor: alcohol
+  color: "#8B4513"
+  recognizable: true
+  metabolisms:
+    Drink:
+      effects:
+      - !type:SatiateThirst
+        factor: 1
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectDrowsiness
+        time: 10
+        type: Add

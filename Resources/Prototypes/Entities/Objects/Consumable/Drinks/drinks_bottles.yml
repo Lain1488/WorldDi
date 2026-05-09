@@ -1078,3 +1078,21 @@
       drink:
         maxVol: 150
   - type: Drink
+
+- type: entity
+  parent: [DrinkBottleVisualsAll, DrinkBottleGlassBaseFull]
+  id: DrinkAppleciderBottleFull
+  name: Яблочный сидр
+  description: Бутылка освежающего яблочногосидра.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Apple cider
+          Quantity: 100
+  - type: Label
+    currentLabel: reagent-name-apple-cider
+  - type: Sprite
+    sprite: Objects/Consumable/Drinks/applecider.rsi
+  - type: Sealable
