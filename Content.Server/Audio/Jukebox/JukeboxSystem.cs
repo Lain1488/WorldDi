@@ -26,6 +26,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         SubscribeLocalEvent<JukeboxComponent, JukeboxPauseMessage>(OnJukeboxPause);
         SubscribeLocalEvent<JukeboxComponent, JukeboxStopMessage>(OnJukeboxStop);
         SubscribeLocalEvent<JukeboxComponent, JukeboxSetTimeMessage>(OnJukeboxSetTime);
+        SubscribeLocalEvent<JukeboxComponent, JukeboxSetVolumeMessage>(OnJukeboxSetVolume);
         SubscribeLocalEvent<JukeboxComponent, ComponentInit>(OnComponentInit);
         SubscribeLocalEvent<JukeboxComponent, ComponentShutdown>(OnComponentShutdown);
 
@@ -56,7 +57,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
                 return;
             }
 
-            component.AudioStream = Audio.PlayPvs(jukeboxProto.Path, uid, AudioParams.Default.WithMaxDistance(10f))?.Entity;
+            component.AudioStream = Audio.PlayPvs(jukeboxProto.Path, uid, AudioParams.Default.WithMaxDistance(10f).WithVolume(component.Volume))?.Entity;
             Dirty(uid, component);
         }
     }
@@ -73,6 +74,18 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
             var offset = actorComp.PlayerSession.Channel.Ping * 1.5f / 1000f;
             Audio.SetPlaybackPosition(component.AudioStream, args.SongTime + offset);
         }
+    }
+
+    private void OnJukeboxSetVolume(EntityUid uid, JukeboxComponent component, JukeboxSetVolumeMessage args)
+    {
+        component.Volume = Math.Clamp(args.Volume, -32f, 5f);
+
+        if (Exists(component.AudioStream))
+        {
+            Audio.SetVolume(component.AudioStream, component.Volume);
+        }
+
+        Dirty(uid, component);
     }
 
     private void OnPowerChanged(Entity<JukeboxComponent> entity, ref PowerChangedEvent args)

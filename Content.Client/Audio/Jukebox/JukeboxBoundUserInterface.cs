@@ -43,6 +43,7 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
 
         _menu.OnSongSelected += SelectSong;
 
+        _menu.OnVolumeChanged += volume => SendMessage(new JukeboxSetVolumeMessage(volume));
         _menu.SetTime += SetTime;
         PopulateMusic();
         Reload();
@@ -67,6 +68,8 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
         {
             _menu.SetSelectedSong(string.Empty, 0f);
         }
+
+        _menu.SetVolumeSlider(jukebox.Volume);
     }
 
     public void PopulateMusic()

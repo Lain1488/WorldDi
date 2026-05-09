@@ -29,6 +29,7 @@ public sealed partial class JukeboxMenu : FancyWindow
     public event Action<bool>? OnPlayPressed;
     public event Action? OnStopPressed;
     public event Action<ProtoId<JukeboxPrototype>>? OnSongSelected;
+    public event Action<float>? OnVolumeChanged;
     public event Action<float>? SetTime;
 
     private EntityUid? _audio;
@@ -60,6 +61,8 @@ public sealed partial class JukeboxMenu : FancyWindow
         {
             OnStopPressed?.Invoke();
         };
+        VolumeSlider.OnValueChanged += args => SetVolumeLabel(args.Value);
+        VolumeSlider.OnReleased += VolumeSliderReleased;
         PlaybackSlider.OnReleased += PlaybackSliderKeyUp;
 
         SetPlayPauseButton(_audioSystem.IsPlaying(_audio), force: true);
@@ -162,5 +165,21 @@ public sealed partial class JukeboxMenu : FancyWindow
         {
             SongName.Text = "---";
         }
+    }
+
+    public void SetVolumeSlider(float value)
+    {
+        VolumeSlider.SetValueWithoutEvent(value);
+        SetVolumeLabel(value);
+    }
+
+    private void SetVolumeLabel(float value)
+    {
+        VolumeLabel.Text = $"Volume: {value:+0.#;-0.#;0} dB";
+    }
+
+    private void VolumeSliderReleased(Slider args)
+    {
+        OnVolumeChanged?.Invoke(VolumeSlider.Value);
     }
 }
