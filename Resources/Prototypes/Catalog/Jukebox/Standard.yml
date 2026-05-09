@@ -39,3 +39,9 @@
   name: PigeonBeans - Sunset
   path:
     path: /Audio/Jukebox/sunset.ogg
+
+- type: jukebox
+  id: neangely
+  name: А мы не ангелы, парень
+  path:
+    path: /Audio/Jukebox/neangely.ogg
