@@ -1559,15 +1559,13 @@
 - type: reaction
   id: Morby
   reactants:
-    JuiceLime:
-      amount: 1
     JuiceLemon:
       amount: 1
     Rum:
       amount: 2
     Gin:
       amount: 1
-    Tequila:
+    Margarita:
       amount: 1
     Vodka:
       amount: 1
